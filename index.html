@@ -2,78 +2,138 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>SMK Islam Malahayati</title>
+  <title>Sekolah Cemerlang Nusantara</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
+
+    body {
+      background-color: #f4f4f4;
+    }
+
     header {
-      background-color: #2c3e50;
+      background: linear-gradient(to right, #2c3e50, #3498db);
       color: white;
-      padding: 20px;
+      padding: 40px 20px;
       text-align: center;
     }
+
     nav {
-      background-color: #34495e;
-      padding: 10px;
-      text-align: center;
+      background-color: #2980b9;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
     }
+
     nav a {
       color: white;
-      margin: 0 15px;
       text-decoration: none;
+      margin: 0 20px;
+      font-weight: bold;
     }
-    main {
-      padding: 20px;
+
+    nav a:hover {
+      text-decoration: underline;
     }
+
+    .hero {
+      background-image: url('https://source.unsplash.com/1600x600/?school,education');
+      background-size: cover;
+      background-position: center;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2em;
+      font-weight: bold;
+      text-shadow: 2px 2px 5px #000;
+    }
+
+    .content {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section h2 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    .section p, .section ul {
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .section ul {
+      list-style-type: square;
+      margin-left: 20px;
+    }
+
     footer {
       background-color: #2c3e50;
       color: white;
       text-align: center;
-      padding: 10px;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
+      padding: 20px;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Selama Datang di SMK Islam Malahayati</h1>
-    <p>Membangun Generasi Unggul dan Berkarakter</p>
+    <h1>Sekolah Cemerlang Nusantara</h1>
+    <p>Tempat Tumbuhnya Generasi Hebat</p>
   </header>
 
   <nav>
     <a href="#">Beranda</a>
-    <a href="#">Profil</a>
+    <a href="#">Tentang</a>
     <a href="#">Program</a>
+    <a href="#">Galeri</a>
     <a href="#">Kontak</a>
   </nav>
 
-  <main>
-    <h2>Tentang Kami</h2>
-    <p>SMK Islam Malahayati adalah institusi pendidikan yang berkomitmen untuk memberikan pembelajaran berkualitas, lingkungan yang aman, dan pengembangan karakter siswa.</p>
+  <div class="hero">
+    Pendidikan Berkualitas untuk Masa Depan Gemilang
+  </div>
 
-    <h2>Program Unggulan</h2>
-    <ul>
-      <li>Program Bilingual (Bahasa Indonesia & Inggris)</li>
-      <li>Laboratorium Sains dan Teknologi</li>
-      <li>Kegiatan Ekstrakurikuler yang Beragam</li>
-      <li>Pembinaan Karakter dan Kepemimpinan</li>
-    </ul>
+  <div class="content">
+    <div class="section">
+      <h2>Tentang Sekolah</h2>
+      <p>Sekolah Cemerlang Nusantara adalah sekolah modern yang menggabungkan teknologi, karakter, dan kreativitas dalam proses belajar. Kami percaya bahwa setiap anak memiliki potensi luar biasa yang harus dikembangkan dengan pendekatan yang tepat.</p>
+    </div>
 
-    <h2>Hubungi Kami</h2>
-    <p>Email: info@harapanbangsa.sch.id</p>
-    <p>Telepon: 088588218246</p>
-    <p>Alamat: Jl. Pendidikan No. 10, Jakarta Timur</p>
-  </main>
+    <div class="section">
+      <h2>Program Unggulan</h2>
+      <ul>
+        <li>Smart Class dengan teknologi interaktif</li>
+        <li>Bahasa Inggris dan Mandarin sejak dini</li>
+        <li>Ekstrakurikuler: Coding, Musik, Tari, Robotik</li>
+        <li>Psikologi Anak & Konseling</li>
+        <li>Program Kepemimpinan & Karakter</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Kontak Kami</h2>
+      <p>Email: info@cemerlangnusantara.sch.id</p>
+      <p>Telepon: (021) 9876-5432</p>
+      <p>Alamat: Jl. Prestasi No. 88, Jakarta Selatan</p>
+    </div>
+  </div>
 
   <footer>
-    &copy; 2025 SMK Islam Malahayati. Semua hak dilindungi.
+    &copy; 2025 Sekolah Cemerlang Nusantara. Dibuat dengan semangat pendidikan.
   </footer>
 
 </body>
