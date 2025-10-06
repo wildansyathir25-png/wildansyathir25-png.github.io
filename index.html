@@ -5,11 +5,13 @@
   <title>SMK ISLAM MALAHAYATI</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
       --primary: #27ae60;
       --dark: #2c3e50;
       --light: #ecf0f1;
+      --accent: #f39c12;
     }
 
     * {
@@ -26,7 +28,7 @@
     }
 
     header {
-      background: var(--primary);
+      background: linear-gradient(to right, var(--primary), var(--accent));
       color: white;
       padding: 60px 20px;
       text-align: center;
@@ -38,8 +40,8 @@
       top: 0;
       background-color: var(--dark);
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
+      flex-wrap: wrap;
       padding: 15px 0;
       z-index: 1000;
     }
@@ -53,7 +55,7 @@
     }
 
     nav a:hover {
-      color: var(--primary);
+      color: var(--accent);
     }
 
     .hero {
@@ -152,7 +154,7 @@
     .counter {
       font-size: 2em;
       font-weight: bold;
-      color: var(--primary);
+      color: var(--accent);
     }
 
     form {
@@ -185,11 +187,22 @@
     }
 
     footer {
-      background-color: var(--dark);
+      background: linear-gradient(to right, var(--dark), var(--primary));
       color: white;
       text-align: center;
       padding: 30px 20px;
       margin-top: 40px;
+    }
+
+    footer .social i {
+      margin: 0 10px;
+      font-size: 1.5em;
+      transition: transform 0.3s;
+    }
+
+    footer .social i:hover {
+      transform: scale(1.2);
+      color: var(--accent);
     }
 
     @keyframes fadeIn {
@@ -246,19 +259,19 @@
       <h2>Program Unggulan</h2>
       <div class="cards">
         <div class="card">
-          <h3>Smart Class</h3>
+          <h3><i class="fas fa-laptop-code"></i> Smart Class</h3>
           <p>Ruang kelas interaktif dengan teknologi digital dan pembelajaran berbasis proyek.</p>
         </div>
         <div class="card">
-          <h3>Bahasa Asing</h3>
+          <h3><i class="fas fa-language"></i> Bahasa Asing</h3>
           <p>Program intensif Bahasa Inggris dan Mandarin sejak tingkat dasar.</p>
         </div>
         <div class="card">
-          <h3>Ekstrakurikuler</h3>
+          <h3><i class="fas fa-robot"></i> Ekstrakurikuler</h3>
           <p>Beragam pilihan seperti Coding, Musik, Tari, Robotik, dan Olahraga.</p>
         </div>
         <div class="card">
-          <h3>Kepemimpinan</h3>
+          <h3><i class="fas fa-user-graduate"></i> Kepemimpinan</h3>
           <p>Pelatihan karakter dan kepemimpinan untuk membentuk pribadi tangguh dan inspiratif.</p>
         </div>
       </div>
@@ -272,18 +285,3 @@
           <p>Alumni</p>
         </div>
         <div>
-          <div class="counter" data-target="85">0</div>
-          <p>Penghargaan</p>
-        </div>
-        <div>
-          <div class="counter" data-target="25">0</div>
-          <p>Ekstrakurikuler</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="section" id="galeri">
-      <h2>Galeri Sekolah</h2>
-      <div class="gallery">
-        <img src="https://source.unsplash.com/400x300/?classroom" alt="Kelas">
-        <img src="https://source.unsplash.com/400x300/?students" alt="
