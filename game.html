@@ -25,28 +25,46 @@
       top: 20px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 20px;
+      font-size: 22px;
       font-weight: bold;
+      background: rgba(0,0,0,0.4);
+      padding: 6px 12px;
+      border-radius: 8px;
     }
   </style>
 </head>
 <body>
   <div id="scoreBoard">Skor: 0</div>
-  <canvas id="gameCanvas" width="800" height="400"></canvas>
+  <canvas id="gameCanvas" width="900" height="400"></canvas>
+
+  <!-- Suara -->
+  <audio id="jumpSound" src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg"></audio>
+  <audio id="hitSound" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"></audio>
+  <audio id="gameOverSound" src="https://actions.google.com/sounds/v1/cartoon/metal_clang.ogg"></audio>
 
   <script>
     const canvas = document.getElementById("gameCanvas");
     const ctx = canvas.getContext("2d");
     const scoreBoard = document.getElementById("scoreBoard");
 
-    let player = { x: 50, y: 300, w: 40, h: 40, vy: 0, gravity: 0.8, jump: -12, onGround: true };
+    const jumpSound = document.getElementById("jumpSound");
+    const hitSound = document.getElementById("hitSound");
+    const gameOverSound = document.getElementById("gameOverSound");
+
+    let player = { x: 80, y: 300, r: 25, vy: 0, gravity: 0.7, jump: -14, onGround: true };
     let obstacles = [];
+    let clouds = [];
     let score = 0;
     let gameOver = false;
 
     function drawPlayer() {
-      ctx.fillStyle = "limegreen";
-      ctx.fillRect(player.x, player.y, player.w, player.h);
+      let gradient = ctx.createRadialGradient(player.x, player.y, 5, player.x, player.y, player.r);
+      gradient.addColorStop(0, "lime");
+      gradient.addColorStop(1, "green");
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(player.x, player.y, player.r, 0, Math.PI * 2);
+      ctx.fill();
     }
 
     function drawObstacles() {
@@ -54,19 +72,32 @@
       obstacles.forEach(o => ctx.fillRect(o.x, o.y, o.w, o.h));
     }
 
+    function drawClouds() {
+      ctx.fillStyle = "rgba(255,255,255,0.8)";
+      clouds.forEach(c => {
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    }
+
     function updatePlayer() {
       player.y += player.vy;
       player.vy += player.gravity;
-      if (player.y + player.h >= canvas.height - 50) {
-        player.y = canvas.height - 50 - player.h;
+      if (player.y + player.r >= canvas.height - 50) {
+        player.y = canvas.height - 50 - player.r;
         player.vy = 0;
         player.onGround = true;
       }
     }
 
     function spawnObstacle() {
-      const size = Math.random() * 20 + 20;
-      obstacles.push({ x: canvas.width, y: canvas.height - 50 - size, w: size, h: size });
+      const h = Math.random() * 40 + 30;
+      obstacles.push({ x: canvas.width, y: canvas.height - 50 - h, w: 30, h: h });
+    }
+
+    function spawnCloud() {
+      clouds.push({ x: canvas.width, y: Math.random() * 100 + 20, r: Math.random() * 20 + 20 });
     }
 
     function updateObstacles() {
@@ -74,12 +105,21 @@
       obstacles = obstacles.filter(o => o.x + o.w > 0);
     }
 
+    function updateClouds() {
+      clouds.forEach(c => c.x -= 2);
+      clouds = clouds.filter(c => c.x + c.r > 0);
+    }
+
     function checkCollision() {
       obstacles.forEach(o => {
-        if (player.x < o.x + o.w &&
-            player.x + player.w > o.x &&
-            player.y < o.y + o.h &&
-            player.y + player.h > o.y) {
+        if (player.x + player.r > o.x &&
+            player.x - player.r < o.x + o.w &&
+            player.y + player.r > o.y &&
+            player.y - player.r < o.y + o.h) {
+          if (!gameOver) {
+            hitSound.play();
+            gameOverSound.play();
+          }
           gameOver = true;
         }
       });
@@ -103,14 +143,16 @@
       }
 
       ctx.clearRect(0,0,canvas.width,canvas.height);
+      drawClouds();
       drawGround();
       drawPlayer();
       drawObstacles();
       updatePlayer();
       updateObstacles();
+      updateClouds();
       checkCollision();
 
-      score++;
+      score += 5; // skor lebih cepat naik
       scoreBoard.textContent = "Skor: " + score;
 
       requestAnimationFrame(gameLoop);
@@ -124,11 +166,13 @@
       if (player.onGround) {
         player.vy = player.jump;
         player.onGround = false;
+        jumpSound.play();
       }
     }
 
     function restartGame() {
       obstacles = [];
+      clouds = [];
       score = 0;
       gameOver = false;
       player.y = 300;
@@ -141,8 +185,10 @@
     canvas.addEventListener("mousedown", jump);
     canvas.addEventListener("touchstart", jump);
 
-    // Spawn rintangan tiap 2 detik
-    setInterval(() => { if (!gameOver) spawnObstacle(); }, 2000);
+    // Spawn rintangan tiap 1.8 detik
+    setInterval(() => { if (!gameOver) spawnObstacle(); }, 1800);
+    // Spawn awan tiap 3 detik
+    setInterval(() => { if (!gameOver) spawnCloud(); }, 3000);
 
     // Mulai game
     requestAnimationFrame(gameLoop);
