@@ -1,267 +1,151 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <title>Runner Sekolah – Hindari Rintangan!</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>Game Lari Hindari Rintangan</title>
   <style>
-    :root {
-      --bg: #0e1726;
-      --fg: #e2e8f0;
-      --accent: #22c55e;
-      --danger: #ef4444;
-      --star: #f59e0b;
-      --panel: #1f2a44;
-    }
-    * { box-sizing: border-box; }
     body {
-      margin: 0; background: linear-gradient(180deg, #0b1220, var(--bg));
-      color: var(--fg); font-family: system-ui, -apple-system, Segoe UI, Roboto, "Poppins", sans-serif;
-      display: grid; place-items: center; min-height: 100vh;
+      margin: 0;
+      background: #222;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+      font-family: Arial, sans-serif;
+      user-select: none;
     }
-    .wrap {
-      width: 100%; max-width: 900px; padding: 16px;
-    }
-    h1 { margin: 0 0 8px; font-size: 1.25rem; letter-spacing: .5px; color: #cbd5e1; }
-    .hud {
-      display: grid; grid-template-columns: 1fr auto auto; gap: 8px; align-items: center;
-      background: rgba(31,42,68,0.6); border: 1px solid #263251; padding: 8px 12px; border-radius: 10px;
-      backdrop-filter: blur(6px);
-    }
-    .hud .stats { display: flex; gap: 16px; flex-wrap: wrap; }
-    .badge {
-      background: #0f172a; border: 1px solid #213055; padding: 6px 10px; border-radius: 8px;
-      font-size: .9rem;
-    }
-    .controls { display: flex; gap: 8px; flex-wrap: wrap; }
-    button {
-      background: var(--panel); color: var(--fg); border: 1px solid #2a395f;
-      padding: 8px 12px; border-radius: 8px; cursor: pointer; transition: transform .12s, background .2s;
-    }
-    button:hover { transform: translateY(-1px); background: #243355; }
-    button:active { transform: translateY(0); }
     canvas {
-      display: block; width: 100%; border-radius: 12px; margin-top: 12px;
-      background: linear-gradient(180deg, #0d1b2a 0%, #0d1b2a 60%, #0b1325 60%, #0b1325 100%);
-      box-shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 0 0 1px #253155;
+      background: linear-gradient(#87ceeb, #fff);
+      border: 3px solid #333;
+      border-radius: 10px;
     }
-    .tips {
-      margin-top: 10px; font-size: .95rem; color: #9fb3c8;
+    #scoreBoard {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 20px;
+      font-weight: bold;
     }
-    .toast {
-      position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
-      background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.4);
-      color: #a7f3d0; padding: 8px 12px; border-radius: 8px; font-size: .9rem;
-      opacity: 0; pointer-events: none; transition: opacity .25s;
-    }
-    .toast.show { opacity: 1; }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <h1>Runner Sekolah – Hindari Rintangan!</h1>
-    <div class="hud">
-      <div class="stats">
-        <div class="badge">Skor: <strong id="score">0</strong></div>
-        <div class="badge">High Score: <strong id="high">0</strong></div>
-        <div class="badge">Kecepatan: <strong id="spd">1.0x</strong></div>
-        <div class="badge">Status: <strong id="state">Siap</strong></div>
-      </div>
-      <div class="controls">
-        <button id="btnStart">Mulai</button>
-        <button id="btnPause">Pause</button>
-        <button id="btnResume">Lanjut</button>
-        <button id="btnRestart">Restart</button>
-      </div>
-    </div>
-    <canvas id="game" width="900" height="450" aria-label="Game Runner, tap atau tekan spasi untuk lompat"></canvas>
-    <p class="tips">Kontrol: Spasi / Panah Atas / Klik / Sentuh untuk lompat. Hindari rintangan merah, ambil bintang kuning!</p>
-  </div>
-
-  <div id="toast" class="toast">Mantap! +10 poin</div>
+  <div id="scoreBoard">Skor: 0</div>
+  <canvas id="gameCanvas" width="800" height="400"></canvas>
 
   <script>
-    // Setup
-    const cv = document.getElementById('game');
-    const ctx = cv.getContext('2d');
-    const HUD = {
-      score: document.getElementById('score'),
-      high: document.getElementById('high'),
-      spd: document.getElementById('spd'),
-      state: document.getElementById('state'),
-      toast: document.getElementById('toast')
-    };
-    const BTN = {
-      start: document.getElementById('btnStart'),
-      pause: document.getElementById('btnPause'),
-      resume: document.getElementById('btnResume'),
-      restart: document.getElementById('btnRestart')
-    };
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+    const scoreBoard = document.getElementById("scoreBoard");
 
-    // World
-    const W = cv.width, H = cv.height;
-    const GROUND = H * 0.75;
-    let running = false, paused = false;
-    let score = 0, high = +localStorage.getItem('runner_high') || 0;
-    let speed = 6, spawnTimer = 0, spawnInterval = 80;
-    let last = 0;
+    let player = { x: 50, y: 300, w: 40, h: 40, vy: 0, gravity: 0.8, jump: -12, onGround: true };
+    let obstacles = [];
+    let score = 0;
+    let gameOver = false;
 
-    HUD.high.textContent = high;
+    function drawPlayer() {
+      ctx.fillStyle = "limegreen";
+      ctx.fillRect(player.x, player.y, player.w, player.h);
+    }
 
-    // Player
-    const player = {
-      x: 120, y: GROUND, w: 42, h: 42,
-      vy: 0, jumpForce: -13, onGround: true,
-      colorA: '#22c55e', colorB: '#10b981', t: 0
-    };
+    function drawObstacles() {
+      ctx.fillStyle = "red";
+      obstacles.forEach(o => ctx.fillRect(o.x, o.y, o.w, o.h));
+    }
 
-    // Entities
-    const obstacles = []; // {x,y,w,h}
-    const stars = [];     // {x,y,r,spin}
+    function updatePlayer() {
+      player.y += player.vy;
+      player.vy += player.gravity;
+      if (player.y + player.h >= canvas.height - 50) {
+        player.y = canvas.height - 50 - player.h;
+        player.vy = 0;
+        player.onGround = true;
+      }
+    }
 
-    // Input
+    function spawnObstacle() {
+      const size = Math.random() * 20 + 20;
+      obstacles.push({ x: canvas.width, y: canvas.height - 50 - size, w: size, h: size });
+    }
+
+    function updateObstacles() {
+      obstacles.forEach(o => o.x -= 6);
+      obstacles = obstacles.filter(o => o.x + o.w > 0);
+    }
+
+    function checkCollision() {
+      obstacles.forEach(o => {
+        if (player.x < o.x + o.w &&
+            player.x + player.w > o.x &&
+            player.y < o.y + o.h &&
+            player.y + player.h > o.y) {
+          gameOver = true;
+        }
+      });
+    }
+
+    function drawGround() {
+      ctx.fillStyle = "#654321";
+      ctx.fillRect(0, canvas.height - 50, canvas.width, 50);
+    }
+
+    function gameLoop() {
+      if (gameOver) {
+        ctx.fillStyle = "rgba(0,0,0,0.5)";
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.fillStyle = "white";
+        ctx.font = "40px Arial";
+        ctx.fillText("Game Over!", canvas.width/2 - 100, canvas.height/2);
+        ctx.font = "20px Arial";
+        ctx.fillText("Tekan Spasi / Klik untuk Restart", canvas.width/2 - 150, canvas.height/2 + 40);
+        return;
+      }
+
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      drawGround();
+      drawPlayer();
+      drawObstacles();
+      updatePlayer();
+      updateObstacles();
+      checkCollision();
+
+      score++;
+      scoreBoard.textContent = "Skor: " + score;
+
+      requestAnimationFrame(gameLoop);
+    }
+
     function jump() {
-      if (!running || paused) return;
+      if (gameOver) {
+        restartGame();
+        return;
+      }
       if (player.onGround) {
-        player.vy = player.jumpForce;
+        player.vy = player.jump;
         player.onGround = false;
       }
     }
-    window.addEventListener('keydown', (e) => {
-      if ([' ', 'ArrowUp'].includes(e.key)) { e.preventDefault(); jump(); }
-    });
-    cv.addEventListener('mousedown', jump);
-    cv.addEventListener('touchstart', (e) => { e.preventDefault(); jump(); }, { passive: false });
 
-    // Buttons
-    BTN.start.onclick = () => { if (!running) startGame(); };
-    BTN.pause.onclick = () => { if (running) { paused = true; HUD.state.textContent = 'Pause'; } };
-    BTN.resume.onclick = () => { if (running) { paused = false; last = performance.now(); HUD.state.textContent = 'Main'; requestAnimationFrame(loop); } };
-    BTN.restart.onclick = () => resetGame();
-
-    // Utils
-    function rand(a, b) { return Math.random() * (b - a) + a; }
-    function rectsCollide(a, b) {
-      return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
-    }
-    function showToast(msg) {
-      HUD.toast.textContent = msg;
-      HUD.toast.classList.add('show');
-      setTimeout(() => HUD.toast.classList.remove('show'), 700);
+    function restartGame() {
+      obstacles = [];
+      score = 0;
+      gameOver = false;
+      player.y = 300;
+      player.vy = 0;
+      requestAnimationFrame(gameLoop);
     }
 
-    // Game control
-    function startGame() {
-      running = true; paused = false; score = 0; speed = 6; spawnInterval = 80;
-      obstacles.length = 0; stars.length = 0; last = performance.now();
-      HUD.state.textContent = 'Main';
-      requestAnimationFrame(loop);
-    }
+    // Kontrol
+    window.addEventListener("keydown", e => { if (e.code === "Space" || e.code === "ArrowUp") jump(); });
+    canvas.addEventListener("mousedown", jump);
+    canvas.addEventListener("touchstart", jump);
 
-    function resetGame() {
-      running = false; paused = false; score = 0;
-      obstacles.length = 0; stars.length = 0;
-      player.y = GROUND; player.vy = 0; player.onGround = true;
-      HUD.score.textContent = score; HUD.spd.textContent = '1.0x'; HUD.state.textContent = 'Siap';
-      ctx.clearRect(0,0,W,H);
-    }
+    // Spawn rintangan tiap 2 detik
+    setInterval(() => { if (!gameOver) spawnObstacle(); }, 2000);
 
-    // Spawning
-    function spawn() {
-      // Obstacle
-      const h = rand(28, 60);
-      const w = rand(20, 45);
-      obstacles.push({ x: W + 10, y: GROUND - h, w, h });
-
-      // Chance to spawn star
-      if (Math.random() < 0.55) {
-        stars.push({ x: W + rand(80, 180), y: rand(GROUND - 160, GROUND - 60), r: rand(6, 10), spin: rand(0, Math.PI*2) });
-      }
-    }
-
-    // Update
-    function update(dt) {
-      // Difficulty scaling
-      score += dt * 0.01;
-      if (score > 50) speed = 7.5;
-      if (score > 120) speed = 9;
-      if (score > 250) { speed = 10.5; spawnInterval = 65; }
-      if (score > 500) { speed = 12; spawnInterval = 55; }
-      HUD.score.textContent = Math.floor(score);
-      HUD.spd.textContent = (speed / 6).toFixed(1) + 'x';
-
-      // Player physics
-      player.t += dt * 0.01;
-      player.vy += 0.6; // gravity
-      player.y += player.vy;
-      if (player.y >= GROUND) { player.y = GROUND; player.vy = 0; player.onGround = true; }
-
-      // Obstacles move
-      for (let i = obstacles.length - 1; i >= 0; i--) {
-        const o = obstacles[i];
-        o.x -= speed;
-        if (o.x + o.w < -20) obstacles.splice(i, 1);
-        // Collision
-        if (rectsCollide({x:player.x,y:player.y-player.h,w:player.w,h:player.h}, o)) {
-          // Game over
-          running = false; HUD.state.textContent = 'Kalah';
-          high = Math.max(high, Math.floor(score)); localStorage.setItem('runner_high', high); HUD.high.textContent = high;
-          showToast('Aduh! Tabrak rintangan.');
-        }
-      }
-
-      // Stars move
-      for (let i = stars.length - 1; i >= 0; i--) {
-        const s = stars[i];
-        s.x -= speed * 0.95;
-        s.spin += 0.08;
-        if (s.x + s.r < -20) stars.splice(i, 1);
-        // Collect
-        const hit = rectsCollide({x:player.x,y:player.y-player.h,w:player.w,h:player.h}, {x:s.x-s.r,y:s.y-s.r,w:s.r*2,h:s.r*2});
-        if (hit) {
-          score += 10; stars.splice(i, 1);
-          showToast('Mantap! +10 poin');
-        }
-      }
-
-      // Spawn timer
-      spawnTimer += 1;
-      if (spawnTimer > spawnInterval) { spawn(); spawnTimer = 0; }
-    }
-
-    // Draw
-    function draw() {
-      // Sky gradient already via CSS; draw ground line and parallax
-      ctx.clearRect(0,0,W,H);
-
-      // Parallax hills
-      drawHills();
-
-      // Ground
-      ctx.fillStyle = '#0b1b2b';
-      ctx.fillRect(0, GROUND + 2, W, H - GROUND);
-      ctx.strokeStyle = '#1b2b3b';
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.moveTo(0, GROUND);
-      ctx.lineTo(W, GROUND);
-      ctx.stroke();
-
-      // Player (rounded rect + face)
-      const px = player.x, py = player.y - player.h;
-      const grd = ctx.createLinearGradient(px, py, px + player.w, py + player.h);
-      grd.addColorStop(0, player.colorA);
-      grd.addColorStop(1, player.colorB);
-      roundRect(ctx, px, py, player.w, player.h, 8, grd);
-
-      // Eyes
-      ctx.fillStyle = '#0a0a0a';
-      ctx.beginPath(); ctx.arc(px + 12, py + 14, 3, 0, Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(px + player.w - 12, py + 14, 3, 0, Math.PI*2); ctx.fill();
-
-      // Obstacles
-      obstacles.forEach(o => {
-        ctx.fillStyle = '#ef4444';
-        roundRect(ctx, o.x, o.y, o.w, o.h, 6, '#ef4444');
-        ctx.strokeStyle = '#b91c1c';
-        ctx.strokeRect(o
+    // Mulai game
+    requestAnimationFrame(gameLoop);
+  </script>
+</body>
+</html>
