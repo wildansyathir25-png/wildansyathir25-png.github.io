@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontak Kami - TKJ Next-Gen</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+        /* CSS Reset & Global Styles (Sama seperti halaman utama) */
+        :root {
+            --primary-color: #00a8ff;
+            --secondary-color: #0077b6;
+            --dark-bg: #0c0f14;
+            --light-bg: #1e2229;
+            --text-color: #e0e0e0;
+            --light-text: #a0a0a0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* Header & Navigation Bar (Sama seperti halaman utama) */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 0;
+            z-index: 1000;
+            background-color: rgba(12, 15, 20, 0.7);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+        }
+        .logo span { color: var(--primary-color); }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 35px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1em;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-color);
+            transition: width 0.4s ease;
+        }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        .hamburger { display: none; cursor: pointer; color: #fff; }
+
+        /* Halaman Kontak */
+        .page-header {
+            padding-top: 150px; /* Jarak dari header */
+            padding-bottom: 50px;
+            text-align: center;
+        }
+        .section-title {
+            font-size: 3em;
+            color: #fff;
+            font-weight: 700;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-top: 60px;
+            align-items: flex-start;
+        }
+
+        /* Form Kontak */
+        .contact-form {
+            background: var(--light-bg);
+            padding: 40px;
+            border-radius: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--light-text);
+            font-size: 0.9em;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--dark-bg);
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: var(--text-color);
+            font-family: 'Roboto', sans-serif;
+            font-size: 1em;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(0, 168, 255, 0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 150px;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 168, 255, 0.3);
+        }
+
+        /* Info Kontak & Peta */
+        .contact-info {
+            padding: 20px 0;
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            font-family: 'Roboto', sans-serif;
+        }
+        .info-item .icon {
+            color: var(--primary-color);
+            margin-right: 20px;
+        }
+        .info-item span {
+            font-size: 1.1em;
+            color: var(--light-text);
+        }
+
+        .map-container {
+            margin-top: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid var(--light-bg);
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 300px;
+            border: 0;
+        }
+        
+        /* Footer (Sama seperti halaman utama) */
+        footer {
+            background-color: var(--light-bg);
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 100px;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed; top: 0; right: -100%; height: 100vh; width: 60%;
+                background-color: var(--light-bg); flex-direction: column;
+                justify-content: center; align-items: center; gap: 50px;
+                transition: right 0.5s ease-in-out;
+            }
+            .nav-links.active { right: 0; }
+            .hamburger { display: block; z-index: 1001; }
+            .section-title { font-size: 2.5em; }
+            .page-header { padding-top: 120px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container navbar">
+            <a href="index.html" class="logo">SMK<span>Tech</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#keahlian">Keahlian</a></li>
+                <li><a href="index.html#fasilitas">Fasilitas</a></li>
+                <li><a href="kontak.html" class="active">Kontak</a></li>
+            </ul>
+            <div class="hamburger">
+                <i data-feather="menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="contact-page" class="container">
+            <div class="page-header">
+                <h2 class="section-title">Hubungi Kami</h2>
+            </div>
+            
+            <div class="contact-wrapper">
+                <div class="contact-form">
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <label for="name">Nama Lengkap</label>
+                            <input type="text" id="name" name="name" placeholder="Masukkan nama Anda" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Alamat Email</label>
+                            <input type="email" id="email" name="email" placeholder="contoh@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Pesan Anda</label>
+                            <textarea id="message" name="message" placeholder="Tulis pesan Anda di sini..." required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Kirim Pesan</button>
+                    </form>
+                </div>
+
+                <div class="contact-info">
+                    <h3>Informasi Kontak</h3>
+                    <p style="margin-top:10px; margin-bottom:30px; color: var(--light-text); font-family: 'Roboto', sans-serif;">Jangan ragu untuk menghubungi kami melalui detail di bawah ini atau kunjungi kami langsung.</p>
+                    
+                    <div class="info-item">
+                        <i data-feather="map-pin" class="icon"></i>
+                        <span>Jl. Teknologi No. 1, Jakarta Timur, Indonesia</span>
+                    </div>
+                    <div class="info-item">
+                        <i data-feather="mail" class="icon"></i>
+                        <span>info@smktech.sch.id</span>
+                    </div>
+                    <div class="info-item">
+                        <i data-feather="phone" class="icon"></i>
+                        <span>(021) 123-4567</span>
+                    </div>
+
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.128796445028!2d106.89292537499066!3d-6.246755993739777!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f33f0665b169%3A0x8ff533922c19a9d1!2sSMK%20Negeri%2026%20Jakarta!5e0!3m2!1sen!2sid!4v1728873499701!5m2!1sen!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2025 Jurusan TKJ SMK Teknologi Masa Depan. All rights reserved.</p>
+            <p>Dibangun dengan Penuh Semangat oleh Anak TKJ.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Feather Icons Initialization ---
+        feather.replace();
+
+        // --- Navigation & Hamburger Menu ---
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = hamburger.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.setAttribute('data-feather', 'x');
+            } else {
+                icon.setAttribute('data-feather', 'menu');
+            }
+            feather.replace();
+        });
+    </script>
+</body>
+</html>
