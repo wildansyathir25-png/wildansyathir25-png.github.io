@@ -3,201 +3,402 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jurusan TKJ - SMK Bisa!</title>
+    <title>TKJ Keren - SMK Unggul!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* CSS untuk styling, biar cakep! */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        /* CSS RESET (Basic) */
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
+            box-sizing: border-box;
+        }
+
+        /* General Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5; /* Light gray background */
             color: #333;
-            line-height: 1.6;
+            line-height: 1.7;
+            overflow-x: hidden; /* Prevent horizontal scroll from animations */
         }
 
         .container {
-            width: 80%;
+            width: 90%;
+            max-width: 1200px;
             margin: auto;
-            overflow: hidden;
-            padding: 0 20px;
+            padding: 0 15px;
         }
 
+        /* Header Styling */
         header {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 20px 0;
+            background: linear-gradient(to right, #1a2980, #26d0ce); /* Blue gradient */
+            color: #ffffff;
+            padding: 25px 0;
             text-align: center;
-            border-bottom: #1abc9c 4px solid;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: sticky; /* Sticky header */
+            top: 0;
+            z-index: 1000; /* Ensure header stays on top */
         }
 
         header h1 {
             margin: 0;
-            font-size: 2.5em;
+            font-size: 2.8em;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
 
         header p {
-            margin: 0;
-            font-size: 1.2em;
+            margin-top: 5px;
+            font-size: 1.1em;
+            font-weight: 300;
         }
 
+        /* Hero Section Styling */
         .hero {
-            background: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
-            height: 400px;
+            background: url('https://images.unsplash.com/photo-1542831371-d21820610360?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+            height: 550px;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
-            color: #fff;
+            color: #ffffff;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero::before { /* Overlay for better text readability */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6); /* Darker overlay */
+            z-index: -1;
         }
 
         .hero-text {
-            background-color: rgba(44, 62, 80, 0.7);
-            padding: 20px 40px;
-            border-radius: 10px;
+            animation: fadeIn 1.5s ease-out forwards; /* Initial fade-in animation */
+            padding: 30px 50px;
+            border-radius: 12px;
+            backdrop-filter: blur(5px); /* Frosted glass effect */
+            background-color: rgba(255, 255, 255, 0.1); /* Slightly visible background */
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
         }
 
         .hero-text h2 {
-            font-size: 3em;
-            margin-bottom: 10px;
+            font-size: 3.8em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
         }
 
+        .hero-text p {
+            font-size: 1.4em;
+            font-weight: 400;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Section Styling */
         section {
-            padding: 40px 0;
-            border-bottom: 1px solid #ddd;
+            padding: 80px 0;
+            background-color: #ffffff;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            opacity: 0; /* Default hidden for scroll animation */
+            transform: translateY(50px); /* Start slightly below for animation */
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Smooth transition */
+        }
+
+        section.is-visible { /* Class added by JS when element enters viewport */
+            opacity: 1;
+            transform: translateY(0);
         }
         
-        section h2.section-title {
-            text-align: center;
-            font-size: 2em;
-            margin-bottom: 30px;
-            color: #2c3e50;
+        section:nth-of-type(even) { /* Alternate background for sections */
+            background-color: #f9f9fb;
         }
 
+        h2.section-title {
+            text-align: center;
+            font-size: 3em;
+            margin-bottom: 50px;
+            color: #1a2980; /* Dark blue from gradient */
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        h2.section-title::after { /* Underline effect */
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: #26d0ce; /* Cyan from gradient */
+            border-radius: 2px;
+        }
+
+        /* Tentang Section */
         .tentang-content {
             display: flex;
-            gap: 30px;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            gap: 40px;
             align-items: center;
+            justify-content: center;
         }
 
         .tentang-content img {
-            width: 300px;
+            max-width: 450px;
             height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: transform 0.5s ease;
         }
 
+        .tentang-content img:hover {
+            transform: scale(1.03); /* Slight zoom on hover */
+        }
+
+        .tentang-text {
+            flex: 1;
+            min-width: 300px; /* Minimum width for text before wrapping */
+        }
+        
+        .tentang-text p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        /* Keahlian Section (Grid with Cards) */
         .keahlian-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
         }
 
         .keahlian-item {
             background: #fff;
-            padding: 20px;
-            border-radius: 8px;
+            padding: 30px;
+            border-radius: 12px;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+
+        .keahlian-item::before { /* Subtle background pattern */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(26,41,128,0.05) 1%, transparent 1%) center center / 15px 15px;
+            opacity: 0.5;
+            z-index: -1;
         }
 
         .keahlian-item:hover {
-            transform: translateY(-10px);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         }
 
         .keahlian-item h3 {
-            color: #1abc9c;
-            margin-top: 0;
+            color: #1a2980;
+            margin-top: 15px;
+            font-size: 1.6em;
+            font-weight: 600;
+        }
+        .keahlian-item p {
+            font-size: 1em;
+            color: #666;
+            margin-top: 10px;
+        }
+        .keahlian-item .icon {
+            font-size: 3em;
+            color: #26d0ce;
         }
 
+        /* Galeri Section */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 15px;
+            gap: 20px;
         }
 
         .gallery img {
             width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
+            height: 220px; /* Fixed height for gallery images */
+            object-fit: cover; /* Ensure images fill the space without distortion */
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 3px solid #eee;
         }
         
         .gallery img:hover {
-            transform: scale(1.05);
+            transform: scale(1.05) rotate(1deg); /* Slight zoom and rotate on hover */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-color: #26d0ce;
         }
 
+        /* Footer Styling */
         footer {
-            background: #2c3e50;
+            background: #222; /* Darker footer */
             color: #ecf0f1;
             text-align: center;
-            padding: 20px 0;
-            margin-top: 20px;
+            padding: 30px 0;
+            margin-top: 50px;
+            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
         }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+            font-weight: 300;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            .hero-text h2 {
+                font-size: 2.5em;
+            }
+            .hero-text p {
+                font-size: 1.2em;
+            }
+            h2.section-title {
+                font-size: 2.5em;
+            }
+            .tentang-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .tentang-content img {
+                max-width: 100%;
+            }
+            .keahlian-item h3 {
+                font-size: 1.4em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            header p {
+                font-size: 1em;
+            }
+            .hero {
+                height: 450px;
+            }
+            .hero-text h2 {
+                font-size: 2em;
+            }
+            .hero-text p {
+                font-size: 1em;
+            }
+            h2.section-title {
+                font-size: 2em;
+            }
+            .keahlian-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
     </style>
 </head>
 <body>
 
     <header>
         <div class="container">
-            <h1>SMK Negeri 1 Ngoding</h1>
-            <p>Teknik Komputer dan Jaringan (TKJ)</p>
+            <h1>SMK Jagoan IT</h1>
+            <p>Jurusan Teknik Komputer dan Jaringan (TKJ)</p>
         </div>
     </header>
 
     <section class="hero">
         <div class="hero-text">
-            <h2>Selamat Datang, Calon Ahli Jaringan!</h2>
-            <p>Menjadi Garda Terdepan di Era Digital</p>
+            <h2>Masa Depanmu Ada di Sini!</h2>
+            <p>Jadilah Ahli Jaringan & Inovator Teknologi Bersama Kami.</p>
         </div>
     </section>
 
     <main class="container">
         
         <section id="tentang">
-            <h2 class="section-title">Apa itu TKJ? 🤔</h2>
+            <h2 class="section-title">Kenapa TKJ di SMK Jagoan IT? 💡</h2>
             <div class="tentang-content">
-                <img src="https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?q=80&w=1932&auto=format&fit=crop" alt="Siswa TKJ sedang belajar di lab">
-                <div>
+                <img src="https://images.unsplash.com/photo-1579587428807-6f6d148e6467?q=80&w=2070&auto=format&fit=crop" alt="Siswa TKJ sedang serius belajar di lab modern">
+                <div class="tentang-text">
                     <p>
-                        <strong>Teknik Komputer dan Jaringan (TKJ)</strong> adalah program keahlian yang membekali siswa dengan keterampilan instalasi, perawatan, dan perbaikan komputer serta sistem jaringan. Di sini, kamu nggak cuma jadi pengguna, tapi jadi ahlinya teknologi!
+                        <strong>TKJ bukan sekadar jurusan, tapi gerbang menuju dunia digital tanpa batas!</strong> Di <strong>SMK Jagoan IT</strong>, kami percaya setiap siswa memiliki potensi untuk menjadi pionir teknologi. Program keahlian Teknik Komputer dan Jaringan kami dirancang untuk membentukmu menjadi profesional IT yang siap bersaing di industri 4.0.
                     </p>
                     <p>
-                        Kamu akan belajar mulai dari merakit PC, menginstalasi sistem operasi, membangun jaringan LAN, WAN, hingga mengamankan jaringan dari serangan siber. Pokoknya, semua yang berhubungan dengan infrastruktur IT bakal kamu kuasai.
+                        Dari merakit perangkat keras terkini, membangun infrastruktur jaringan canggih, hingga menguasai keamanan siber yang krusial, kamu akan mendapatkan pengalaman langsung dengan fasilitas lab modern dan dibimbing oleh para pengajar berpengalaman. Kami juga fokus pada pengembangan *soft skill* seperti problem solving dan kerja tim!
                     </p>
                 </div>
             </div>
         </section>
 
         <section id="keahlian">
-            <h2 class="section-title">Keahlian Utama Anak TKJ 🚀</h2>
+            <h2 class="section-title">Keahlian Unggulan yang Akan Kamu Kuasai ✨</h2>
             <div class="keahlian-grid">
                 <div class="keahlian-item">
-                    <h3>💻 Perakitan & Perbaikan PC</h3>
-                    <p>Bongkar pasang komputer sampai jago, tahu setiap komponen dan fungsinya.</p>
+                    <span class="icon">⚙️</span>
+                    <h3>Hardware Specialist</h3>
+                    <p>Mendiagnosis, merakit, dan memperbaiki berbagai perangkat keras komputer & server.</p>
                 </div>
                 <div class="keahlian-item">
-                    <h3>🌐 Administrasi Jaringan</h3>
-                    <p>Mendesain, membangun, dan mengelola jaringan komputer skala kecil hingga menengah.</p>
+                    <span class="icon">🌐</span>
+                    <h3>Network Administrator</h3>
+                    <p>Merancang, mengimplementasikan, dan mengelola jaringan LAN, WAN, hingga Wireless.</p>
                 </div>
                 <div class="keahlian-item">
-                    <h3>🔒 Keamanan Jaringan</h3>
-                    <p>Melindungi jaringan dari ancaman luar seperti hacker dan malware.</p>
+                    <span class="icon">🔒</span>
+                    <h3>Cybersecurity Analyst</h3>
+                    <p>Melindungi sistem dan data dari ancaman siber, menjaga keamanan informasi digital.</p>
                 </div>
                 <div class="keahlian-item">
-                    <h3>🖥️ Sistem Operasi</h3>
-                    <p>Instalasi dan konfigurasi berbagai sistem operasi seperti Windows dan Linux (Server).</p>
+                    <span class="icon">☁️</span>
+                    <h3>Cloud & Server Engineer</h3>
+                    <p>Mengelola server berbasis Linux/Windows dan memahami konsep komputasi awan.</p>
                 </div>
             </div>
         </section>
 
         <section id="galeri">
-            <h2 class="section-title">Galeri Kegiatan Kami 📸</h2>
+            <h2 class="section-title">Momen Seru di Lab & Workshop Kami 📸</h2>
             <div class="gallery">
-                <img src="https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?q=80&w=2070&auto=format&fit=crop" alt="Siswa praktik di lab komputer">
-                <img src="https://images.unsplash.com/photo-1580894742597-87bc8789db3d?q=80&w=2070&auto=format&fit=crop" alt="Workshop Jaringan bersama guru">
-                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop" alt="Kerja kelompok project jaringan">
+                <img src="https://images.unsplash.com/photo-1542831368-80f2ad58d601?q=80&w=2070&auto=format&fit=crop" alt="Siswa TKJ praktik jaringan kabel">
+                <img src="https://images.unsplash.com/photo-1582213782179-e0d02d6ac9cf?q=80&w=2070&auto=format&fit=crop" alt="Siswa sedang konfigurasi router">
+                <img src="https://images.unsplash.com/photo-1517032793134-8c4656f4d2a9?q=80&w=2070&auto=format&fit=crop" alt="Diskusi kelompok project IT">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop" alt="Siswa di depan banyak monitor">
             </div>
         </section>
 
@@ -205,9 +406,36 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Jurusan TKJ SMKN 1 Ngoding. All Rights Reserved.</p>
+            <p>&copy; 2025 SMK Jagoan IT - Jurusan TKJ. Desain oleh Siswa Berbakat.</p>
+            <p>#TKJBisa #MasaDepanDigital</p>
         </div>
     </footer>
 
+    <script>
+        // JavaScript for Scroll Reveal Animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('section');
+
+            const observerOptions = {
+                root: null, // relative to the viewport
+                rootMargin: '0px',
+                threshold: 0.2 // Trigger when 20% of the section is visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Stop observing once animated
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+
 </body>
-</html>
+    </html>
