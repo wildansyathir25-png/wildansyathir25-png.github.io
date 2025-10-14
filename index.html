@@ -3,439 +3,445 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TKJ Keren - SMK Unggul!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>TKJ Next-Gen - SMK Teknologi Masa Depan</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/feather-icons"></script>
+
     <style>
-        /* CSS RESET (Basic) */
+        /* CSS Reset & Global Styles */
+        :root {
+            --primary-color: #00a8ff;
+            --secondary-color: #0077b6;
+            --dark-bg: #0c0f14;
+            --light-bg: #1e2229;
+            --text-color: #e0e0e0;
+            --light-text: #a0a0a0;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            scroll-behavior: smooth;
         }
 
-        /* General Styling */
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f0f2f5; /* Light gray background */
-            color: #333;
-            line-height: 1.7;
-            overflow-x: hidden; /* Prevent horizontal scroll from animations */
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
         }
 
         .container {
             width: 90%;
             max-width: 1200px;
             margin: auto;
-            padding: 0 15px;
         }
 
-        /* Header Styling */
+        /* Header & Navigation Bar */
         header {
-            background: linear-gradient(to right, #1a2980, #26d0ce); /* Blue gradient */
-            color: #ffffff;
-            padding: 25px 0;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            position: sticky; /* Sticky header */
-            top: 0;
-            z-index: 1000; /* Ensure header stays on top */
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.8em;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-
-        header p {
-            margin-top: 5px;
-            font-size: 1.1em;
-            font-weight: 300;
-        }
-
-        /* Hero Section Styling */
-        .hero {
-            background: url('https://images.unsplash.com/photo-1542831371-d21820610360?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
-            height: 550px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: #ffffff;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero::before { /* Overlay for better text readability */
-            content: '';
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6); /* Darker overlay */
+            width: 100%;
+            padding: 20px 0;
+            z-index: 1000;
+            transition: background-color 0.4s ease, backdrop-filter 0.4s ease;
+        }
+
+        header.scrolled {
+            background-color: rgba(12, 15, 20, 0.7);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+        }
+        .logo span { color: var(--primary-color); }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 35px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1em;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover { color: var(--primary-color); }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-color);
+            transition: width 0.4s ease;
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        /* Hero Section */
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            text-align: center;
+            overflow: hidden;
+        }
+        #particles-js { /* Container for particle animation */
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
             z-index: -1;
         }
 
-        .hero-text {
-            animation: fadeIn 1.5s ease-out forwards; /* Initial fade-in animation */
-            padding: 30px 50px;
-            border-radius: 12px;
-            backdrop-filter: blur(5px); /* Frosted glass effect */
-            background-color: rgba(255, 255, 255, 0.1); /* Slightly visible background */
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+        .hero-content {
+            z-index: 1;
         }
-
-        .hero-text h2 {
-            font-size: 3.8em;
-            margin-bottom: 15px;
+        .hero-content h1 {
+            font-size: 4.5em;
+            color: #fff;
             font-weight: 700;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
-        }
-
-        .hero-text p {
-            font-size: 1.4em;
-            font-weight: 400;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-        }
-
-        /* Section Styling */
-        section {
-            padding: 80px 0;
-            background-color: #ffffff;
             margin-bottom: 20px;
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-            opacity: 0; /* Default hidden for scroll animation */
-            transform: translateY(50px); /* Start slightly below for animation */
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Smooth transition */
+        }
+        .hero-content p {
+            font-size: 1.5em;
+            color: var(--text-color);
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+        }
+        .hero-content .typing-text { color: var(--primary-color); }
+
+        /* General Section Styling */
+        section {
+            padding: 100px 0;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
 
-        section.is-visible { /* Class added by JS when element enters viewport */
+        section.visible {
             opacity: 1;
             transform: translateY(0);
         }
-        
-        section:nth-of-type(even) { /* Alternate background for sections */
-            background-color: #f9f9fb;
-        }
 
-        h2.section-title {
+        .section-title {
             text-align: center;
             font-size: 3em;
-            margin-bottom: 50px;
-            color: #1a2980; /* Dark blue from gradient */
+            margin-bottom: 60px;
+            color: #fff;
             font-weight: 700;
             position: relative;
-            padding-bottom: 15px;
         }
-
-        h2.section-title::after { /* Underline effect */
+        .section-title::after {
             content: '';
             position: absolute;
-            left: 50%;
-            bottom: 0;
-            transform: translateX(-50%);
-            width: 80px;
+            width: 100px;
             height: 4px;
-            background: #26d0ce; /* Cyan from gradient */
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
             border-radius: 2px;
         }
 
-        /* Tentang Section */
-        .tentang-content {
-            display: flex;
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
-            gap: 40px;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .tentang-content img {
-            max-width: 450px;
-            height: auto;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            transition: transform 0.5s ease;
-        }
-
-        .tentang-content img:hover {
-            transform: scale(1.03); /* Slight zoom on hover */
-        }
-
-        .tentang-text {
-            flex: 1;
-            min-width: 300px; /* Minimum width for text before wrapping */
-        }
-        
-        .tentang-text p {
-            font-size: 1.1em;
-            margin-bottom: 15px;
-            color: #555;
-        }
-
-        /* Keahlian Section (Grid with Cards) */
+        /* Keahlian Section */
         .keahlian-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
 
-        .keahlian-item {
-            background: #fff;
-            padding: 30px;
-            border-radius: 12px;
+        .keahlian-card {
+            background: rgba(30, 34, 41, 0.5); /* Glassmorphism background */
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 35px;
+            border-radius: 15px;
             text-align: center;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             transition: transform 0.4s ease, box-shadow 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid #eee;
         }
-
-        .keahlian-item::before { /* Subtle background pattern */
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(26,41,128,0.05) 1%, transparent 1%) center center / 15px 15px;
-            opacity: 0.5;
-            z-index: -1;
+        .keahlian-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 168, 255, 0.2);
         }
-
-        .keahlian-item:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        .keahlian-card .icon { color: var(--primary-color); }
+        .keahlian-card h3 {
+            font-size: 1.5em;
+            margin: 20px 0 10px;
+            color: #fff;
         }
-
-        .keahlian-item h3 {
-            color: #1a2980;
-            margin-top: 15px;
-            font-size: 1.6em;
-            font-weight: 600;
-        }
-        .keahlian-item p {
+        .keahlian-card p {
+            font-family: 'Roboto', sans-serif;
+            color: var(--light-text);
             font-size: 1em;
-            color: #666;
-            margin-top: 10px;
-        }
-        .keahlian-item .icon {
-            font-size: 3em;
-            color: #26d0ce;
         }
 
-        /* Galeri Section */
-        .gallery {
+        /* Fasilitas Section */
+        .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
         }
-
-        .gallery img {
-            width: 100%;
-            height: 220px; /* Fixed height for gallery images */
-            object-fit: cover; /* Ensure images fill the space without distortion */
+        .gallery-item {
+            position: relative;
             border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-            border: 3px solid #eee;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
         }
-        
-        .gallery img:hover {
-            transform: scale(1.05) rotate(1deg); /* Slight zoom and rotate on hover */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border-color: #26d0ce;
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
         }
-
-        /* Footer Styling */
-        footer {
-            background: #222; /* Darker footer */
-            color: #ecf0f1;
-            text-align: center;
-            padding: 30px 0;
-            margin-top: 50px;
-            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
-            border-top-left-radius: 12px;
-            border-top-right-radius: 12px;
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: #fff;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
         }
-
-        footer p {
+        .gallery-item:hover .gallery-overlay { transform: translateY(0); }
+        .gallery-overlay h4 {
+            font-size: 1.3em;
             margin: 0;
-            font-size: 0.9em;
-            font-weight: 300;
         }
+
+        /* Footer */
+        footer {
+            background-color: var(--light-bg);
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 50px;
+        }
+        .footer-content p {
+            color: var(--light-text);
+            font-family: 'Roboto', sans-serif;
+        }
+        .footer-content p:first-child { margin-bottom: 10px; }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 2em;
-            }
-            .hero-text h2 {
-                font-size: 2.5em;
-            }
-            .hero-text p {
-                font-size: 1.2em;
-            }
-            h2.section-title {
-                font-size: 2.5em;
-            }
-            .tentang-content {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%; /* Start off-screen */
+                height: 100vh;
+                width: 60%;
+                background-color: var(--light-bg);
                 flex-direction: column;
-                text-align: center;
+                justify-content: center;
+                align-items: center;
+                gap: 50px;
+                transition: right 0.5s ease-in-out;
             }
-            .tentang-content img {
-                max-width: 100%;
+            .nav-links.active { right: 0; }
+            .hamburger {
+                display: block;
+                z-index: 1001; /* Above nav links */
             }
-            .keahlian-item h3 {
-                font-size: 1.4em;
-            }
+            .hero-content h1 { font-size: 3em; }
+            .hero-content p { font-size: 1.2em; }
+            .section-title { font-size: 2.5em; }
         }
-
-        @media (max-width: 480px) {
-            header h1 {
-                font-size: 1.8em;
-            }
-            header p {
-                font-size: 1em;
-            }
-            .hero {
-                height: 450px;
-            }
-            .hero-text h2 {
-                font-size: 2em;
-            }
-            .hero-text p {
-                font-size: 1em;
-            }
-            h2.section-title {
-                font-size: 2em;
-            }
-            .keahlian-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Keyframe Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
     </style>
 </head>
 <body>
 
     <header>
-        <div class="container">
-            <h1>SMK Jagoan IT</h1>
-            <p>Jurusan Teknik Komputer dan Jaringan (TKJ)</p>
+        <div class="container navbar">
+            <a href="#hero" class="logo">SMK<span>Tech</span></a>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#keahlian">Keahlian</a></li>
+                <li><a href="#fasilitas">Fasilitas</a></li>
+                <li><a href="#kontak">Kontak</a></li>
+            </ul>
+            <div class="hamburger">
+                <i data-feather="menu"></i>
+            </div>
         </div>
     </header>
 
-    <section class="hero">
-        <div class="hero-text">
-            <h2>Masa Depanmu Ada di Sini!</h2>
-            <p>Jadilah Ahli Jaringan & Inovator Teknologi Bersama Kami.</p>
-        </div>
-    </section>
-
-    <main class="container">
-        
-        <section id="tentang">
-            <h2 class="section-title">Kenapa TKJ di SMK Jagoan IT? 💡</h2>
-            <div class="tentang-content">
-                <img src="https://images.unsplash.com/photo-1579587428807-6f6d148e6467?q=80&w=2070&auto=format&fit=crop" alt="Siswa TKJ sedang serius belajar di lab modern">
-                <div class="tentang-text">
-                    <p>
-                        <strong>TKJ bukan sekadar jurusan, tapi gerbang menuju dunia digital tanpa batas!</strong> Di <strong>SMK Jagoan IT</strong>, kami percaya setiap siswa memiliki potensi untuk menjadi pionir teknologi. Program keahlian Teknik Komputer dan Jaringan kami dirancang untuk membentukmu menjadi profesional IT yang siap bersaing di industri 4.0.
-                    </p>
-                    <p>
-                        Dari merakit perangkat keras terkini, membangun infrastruktur jaringan canggih, hingga menguasai keamanan siber yang krusial, kamu akan mendapatkan pengalaman langsung dengan fasilitas lab modern dan dibimbing oleh para pengajar berpengalaman. Kami juga fokus pada pengembangan *soft skill* seperti problem solving dan kerja tim!
-                    </p>
-                </div>
+    <main>
+        <section id="hero">
+            <div id="particles-js"></div>
+            <div class="container hero-content">
+                <h1>Teknik Komputer & Jaringan</h1>
+                <p>Membentuk Generasi Digital Unggul untuk <span class="typing-text"></span></p>
             </div>
         </section>
 
-        <section id="keahlian">
-            <h2 class="section-title">Keahlian Unggulan yang Akan Kamu Kuasai ✨</h2>
+        <section id="keahlian" class="container">
+            <h2 class="section-title">Keahlian Masa Depan</h2>
             <div class="keahlian-grid">
-                <div class="keahlian-item">
-                    <span class="icon">⚙️</span>
-                    <h3>Hardware Specialist</h3>
-                    <p>Mendiagnosis, merakit, dan memperbaiki berbagai perangkat keras komputer & server.</p>
+                <div class="keahlian-card">
+                    <i class="icon" data-feather="server" width="48" height="48"></i>
+                    <h3>Network Infrastructure</h3>
+                    <p>Merancang, membangun, dan mengelola infrastruktur jaringan dari skala lokal hingga cloud.</p>
                 </div>
-                <div class="keahlian-item">
-                    <span class="icon">🌐</span>
-                    <h3>Network Administrator</h3>
-                    <p>Merancang, mengimplementasikan, dan mengelola jaringan LAN, WAN, hingga Wireless.</p>
+                <div class="keahlian-card">
+                    <i class="icon" data-feather="shield" width="48" height="48"></i>
+                    <h3>Cyber Security</h3>
+                    <p>Menganalisis dan melindungi sistem dari ancaman siber dengan teknik pertahanan terkini.</p>
                 </div>
-                <div class="keahlian-item">
-                    <span class="icon">🔒</span>
-                    <h3>Cybersecurity Analyst</h3>
-                    <p>Melindungi sistem dan data dari ancaman siber, menjaga keamanan informasi digital.</p>
+                <div class="keahlian-card">
+                    <i class="icon" data-feather="cpu" width="48" height="48"></i>
+                    <h3>System Administration</h3>
+                    <p>Menguasai administrasi sistem operasi server, baik Linux maupun Windows Server.</p>
                 </div>
-                <div class="keahlian-item">
-                    <span class="icon">☁️</span>
-                    <h3>Cloud & Server Engineer</h3>
-                    <p>Mengelola server berbasis Linux/Windows dan memahami konsep komputasi awan.</p>
+                <div class="keahlian-card">
+                    <i class="icon" data-feather="cloud" width="48" height="48"></i>
+                    <h3>Cloud Computing</h3>
+                    <p>Memahami dan mengimplementasikan solusi berbasis cloud seperti IaaS, PaaS, dan SaaS.</p>
                 </div>
             </div>
         </section>
 
-        <section id="galeri">
-            <h2 class="section-title">Momen Seru di Lab & Workshop Kami 📸</h2>
-            <div class="gallery">
-                <img src="https://images.unsplash.com/photo-1542831368-80f2ad58d601?q=80&w=2070&auto=format&fit=crop" alt="Siswa TKJ praktik jaringan kabel">
-                <img src="https://images.unsplash.com/photo-1582213782179-e0d02d6ac9cf?q=80&w=2070&auto=format&fit=crop" alt="Siswa sedang konfigurasi router">
-                <img src="https://images.unsplash.com/photo-1517032793134-8c4656f4d2a9?q=80&w=2070&auto=format&fit=crop" alt="Diskusi kelompok project IT">
-                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop" alt="Siswa di depan banyak monitor">
+        <section id="fasilitas" class="container">
+            <h2 class="section-title">Lab & Fasilitas Modern</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1591453089903-247514f490a6?q=80&w=1974&auto=format&fit=crop" alt="Lab Jaringan Komputer">
+                    <div class="gallery-overlay"><h4>Lab Jaringan Lanjut</h4></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=2070&auto=format&fit=crop" alt="Ruang Server">
+                    <div class="gallery-overlay"><h4>Ruang Praktik Server</h4></div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1587573089734-09cb69c0f2b4?q=80&w=2070&auto=format&fit=crop" alt="Workshop Fiber Optik">
+                    <div class="gallery-overlay"><h4>Workshop Fiber Optik</h4></div>
+                </div>
             </div>
+        </section>
+        
+        <section id="kontak" class="container">
+             <h2 class="section-title">Hubungi Kami</h2>
+             <div style="text-align:center; font-size:1.2em; font-family:'Roboto', sans-serif;">
+                 <p>Tertarik untuk bergabung atau ingin tahu lebih lanjut?</p>
+                 <p style="margin-top:10px;">Kunjungi kami di <strong>Jl. Teknologi No. 1, Jakarta</strong> atau email ke <strong>info@smktech.sch.id</strong></p>
+             </div>
         </section>
 
     </main>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 SMK Jagoan IT - Jurusan TKJ. Desain oleh Siswa Berbakat.</p>
-            <p>#TKJBisa #MasaDepanDigital</p>
+    <footer id="footer">
+        <div class="container footer-content">
+            <p>&copy; 2025 Jurusan TKJ SMK Teknologi Masa Depan. All rights reserved.</p>
+            <p>Dibangun dengan Penuh Semangat oleh Anak TKJ.</p>
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
     <script>
-        // JavaScript for Scroll Reveal Animation
-        document.addEventListener('DOMContentLoaded', function() {
-            const sections = document.querySelectorAll('section');
+        // --- Feather Icons Initialization ---
+        feather.replace();
 
-            const observerOptions = {
-                root: null, // relative to the viewport
-                rootMargin: '0px',
-                threshold: 0.2 // Trigger when 20% of the section is visible
-            };
+        // --- Navigation & Hamburger Menu ---
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        const header = document.querySelector('header');
 
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target); // Stop observing once animated
-                    }
-                });
-            }, observerOptions);
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            // Ganti ikon menu menjadi close saat aktif
+            const icon = hamburger.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.setAttribute('data-feather', 'x');
+            } else {
+                icon.setAttribute('data-feather', 'menu');
+            }
+            feather.replace(); // Re-render ikon
+        });
+        
+        // --- Header Scroll Effect ---
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
 
-            sections.forEach(section => {
-                observer.observe(section);
+        // --- Typing Text Animation ---
+        new Typed('.typing-text', {
+            strings: ['Tantangan Industri.', 'Inovasi Teknologi.', 'Masa Depan.'],
+            typeSpeed: 70,
+            backSpeed: 40,
+            loop: true
+        });
+
+        // --- Particle.js Background ---
+        particlesJS('particles-js', {
+            "particles": {
+                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#00a8ff" },
+                "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" } },
+                "opacity": { "value": 0.5, "random": false, "anim": { "enable": false } },
+                "size": { "value": 3, "random": true, "anim": { "enable": false } },
+                "line_linked": { "enable": true, "distance": 150, "color": "#0077b6", "opacity": 0.4, "width": 1 },
+                "move": { "enable": true, "speed": 4, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+                "modes": { "repulse": { "distance": 100, "duration": 0.4 }, "push": { "particles_nb": 4 } }
+            },
+            "retina_detect": true
+        });
+
+        // --- Scroll Reveal Animation ---
+        const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
             });
+        }, { threshold: 0.15 });
+
+        sections.forEach(section => {
+            observer.observe(section);
         });
     </script>
-
 </body>
-    </html>
+</html>
