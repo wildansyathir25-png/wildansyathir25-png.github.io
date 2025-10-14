@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jurusan TKJ - SMK Bisa!</title>
+    <style>
+        /* CSS untuk styling, biar cakep! */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+
+        header {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: #1abc9c 4px solid;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .hero {
+            background: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+        }
+
+        .hero-text {
+            background-color: rgba(44, 62, 80, 0.7);
+            padding: 20px 40px;
+            border-radius: 10px;
+        }
+
+        .hero-text h2 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        section {
+            padding: 40px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        section h2.section-title {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        .tentang-content {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .tentang-content img {
+            width: 300px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .keahlian-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .keahlian-item {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .keahlian-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .keahlian-item h3 {
+            color: #1abc9c;
+            margin-top: 0;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            background: #2c3e50;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>SMK Negeri 1 Ngoding</h1>
+            <p>Teknik Komputer dan Jaringan (TKJ)</p>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h2>Selamat Datang, Calon Ahli Jaringan!</h2>
+            <p>Menjadi Garda Terdepan di Era Digital</p>
+        </div>
+    </section>
+
+    <main class="container">
+        
+        <section id="tentang">
+            <h2 class="section-title">Apa itu TKJ? 🤔</h2>
+            <div class="tentang-content">
+                <img src="https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?q=80&w=1932&auto=format&fit=crop" alt="Siswa TKJ sedang belajar di lab">
+                <div>
+                    <p>
+                        <strong>Teknik Komputer dan Jaringan (TKJ)</strong> adalah program keahlian yang membekali siswa dengan keterampilan instalasi, perawatan, dan perbaikan komputer serta sistem jaringan. Di sini, kamu nggak cuma jadi pengguna, tapi jadi ahlinya teknologi!
+                    </p>
+                    <p>
+                        Kamu akan belajar mulai dari merakit PC, menginstalasi sistem operasi, membangun jaringan LAN, WAN, hingga mengamankan jaringan dari serangan siber. Pokoknya, semua yang berhubungan dengan infrastruktur IT bakal kamu kuasai.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="keahlian">
+            <h2 class="section-title">Keahlian Utama Anak TKJ 🚀</h2>
+            <div class="keahlian-grid">
+                <div class="keahlian-item">
+                    <h3>💻 Perakitan & Perbaikan PC</h3>
+                    <p>Bongkar pasang komputer sampai jago, tahu setiap komponen dan fungsinya.</p>
+                </div>
+                <div class="keahlian-item">
+                    <h3>🌐 Administrasi Jaringan</h3>
+                    <p>Mendesain, membangun, dan mengelola jaringan komputer skala kecil hingga menengah.</p>
+                </div>
+                <div class="keahlian-item">
+                    <h3>🔒 Keamanan Jaringan</h3>
+                    <p>Melindungi jaringan dari ancaman luar seperti hacker dan malware.</p>
+                </div>
+                <div class="keahlian-item">
+                    <h3>🖥️ Sistem Operasi</h3>
+                    <p>Instalasi dan konfigurasi berbagai sistem operasi seperti Windows dan Linux (Server).</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="galeri">
+            <h2 class="section-title">Galeri Kegiatan Kami 📸</h2>
+            <div class="gallery">
+                <img src="https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?q=80&w=2070&auto=format&fit=crop" alt="Siswa praktik di lab komputer">
+                <img src="https://images.unsplash.com/photo-1580894742597-87bc8789db3d?q=80&w=2070&auto=format&fit=crop" alt="Workshop Jaringan bersama guru">
+                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop" alt="Kerja kelompok project jaringan">
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Jurusan TKJ SMKN 1 Ngoding. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
