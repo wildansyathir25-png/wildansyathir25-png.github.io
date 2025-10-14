@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fasilitas - TKJ Next-Gen</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+        /* CSS Reset & Global Styles (Sama seperti halaman utama) */
+        :root {
+            --primary-color: #00a8ff;
+            --secondary-color: #0077b6;
+            --dark-bg: #0c0f14;
+            --light-bg: #1e2229;
+            --text-color: #e0e0e0;
+            --light-text: #a0a0a0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        /* Header & Navigation Bar (Sama seperti halaman utama) */
+        header {
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 20px 0; z-index: 1000;
+            background-color: rgba(12, 15, 20, 0.7);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8em; font-weight: 700; color: #fff; text-decoration: none;
+        }
+        .logo span { color: var(--primary-color); }
+
+        .nav-links {
+            list-style: none; display: flex; gap: 35px;
+        }
+
+        .nav-links a {
+            color: #fff; text-decoration: none; font-weight: 500;
+            font-size: 1.1em; position: relative; transition: color 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
+        .nav-links a::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: -5px; left: 50%; transform: translateX(-50%);
+            background-color: var(--primary-color); transition: width 0.4s ease;
+        }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        .hamburger { display: none; cursor: pointer; color: #fff; }
+
+        /* Halaman Fasilitas */
+        .page-header {
+            padding-top: 150px; padding-bottom: 50px; text-align: center;
+        }
+        .section-title {
+            font-size: 3em; color: #fff; font-weight: 700; position: relative;
+        }
+        .section-title::after {
+            content: ''; position: absolute; width: 100px; height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            bottom: -15px; left: 50%; transform: translateX(-50%); border-radius: 2px;
+        }
+        .page-subtitle {
+            margin-top: 30px; font-size: 1.2em; color: var(--light-text);
+            max-width: 800px; margin-left: auto; margin-right: auto;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .fasilitas-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Satu kolom untuk layout utama */
+            gap: 50px;
+            margin-top: 60px;
+        }
+        
+        .fasilitas-card {
+            display: flex;
+            gap: 30px;
+            background: var(--light-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+
+        .fasilitas-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 168, 255, 0.2);
+        }
+
+        /* Penomoran ganjil-genap untuk posisi gambar */
+        .fasilitas-card:nth-child(even) {
+            flex-direction: row-reverse; /* Gambar di kanan untuk item genap */
+        }
+        
+        .fasilitas-image {
+            flex-basis: 40%;
+            min-width: 300px;
+        }
+        
+        .fasilitas-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .fasilitas-content {
+            flex-basis: 60%;
+            padding: 40px;
+        }
+        
+        .fasilitas-content h3 {
+            font-size: 2em;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .fasilitas-content .description {
+            font-family: 'Roboto', sans-serif;
+            color: var(--light-text);
+            margin-bottom: 25px;
+        }
+        
+        .fasilitas-content .highlights {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .fasilitas-content .highlights li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .fasilitas-content .highlights li i {
+            color: var(--primary-color);
+            margin-right: 15px;
+        }
+        
+        /* Footer (Sama seperti halaman utama) */
+        footer {
+            background-color: var(--light-bg); text-align: center;
+            padding: 40px 0; margin-top: 100px;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .fasilitas-card, .fasilitas-card:nth-child(even) {
+                flex-direction: column;
+            }
+            .fasilitas-image {
+                width: 100%;
+                max-height: 300px;
+            }
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed; top: 0; right: -100%; height: 100vh; width: 60%;
+                background-color: var(--light-bg); flex-direction: column;
+                justify-content: center; align-items: center; gap: 50px;
+                transition: right 0.5s ease-in-out;
+            }
+            .nav-links.active { right: 0; }
+            .hamburger { display: block; z-index: 1001; }
+            .section-title { font-size: 2.5em; }
+            .page-header { padding-top: 120px; }
+            .fasilitas-content { padding: 30px 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container navbar">
+            <a href="index.html" class="logo">SMK<span>Tech</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#keahlian">Keahlian</a></li>
+                <li><a href="fasilitas.html" class="active">Fasilitas</a></li>
+                <li><a href="kontak.html">Kontak</a></li>
+            </ul>
+            <div class="hamburger">
+                <i data-feather="menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="fasilitas-page" class="container">
+            <div class="page-header">
+                <h2 class="section-title">Fasilitas Unggulan Kami</h2>
+                <p class="page-subtitle">Kami menyediakan lingkungan belajar yang modern dan lengkap untuk mendukung siswa menjadi ahli di bidang Teknik Komputer dan Jaringan.</p>
+            </div>
+            
+            <div class="fasilitas-grid">
+                <div class="fasilitas-card">
+                    <div class="fasilitas-image">
+                        <img src="https://images.unsplash.com/photo-1591453089903-247514f490a6?q=80&w=1974&auto=format&fit=crop" alt="Lab Jaringan Komputer">
+                    </div>
+                    <div class="fasilitas-content">
+                        <h3>Laboratorium Jaringan Komputer</h3>
+                        <p class="description">Pusat praktik untuk merancang, mengkonfigurasi, dan mengelola jaringan. Siswa belajar langsung dengan perangkat standar industri.</p>
+                        <ul class="highlights">
+                            <li><i data-feather="check-circle"></i>Perangkat Router Mikrotik & Cisco</li>
+                            <li><i data-feather="check-circle"></i>Switch Manageable & Unmanageable</li>
+                            <li><i data-feather="check-circle"></i>Praktik Routing, Switching, dan VLAN</li>
+                            <li><i data-feather="check-circle"></i>Simulasi Jaringan dengan GNS3 & Packet Tracer</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="fasilitas-card">
+                    <div class="fasilitas-image">
+                        <img src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=2070&auto=format&fit=crop" alt="Lab Server dan Cloud Computing">
+                    </div>
+                    <div class="fasilitas-content">
+                        <h3>Laboratorium Server & Cloud</h3>
+                        <p class="description">Tempat siswa belajar instalasi, konfigurasi, dan maintenance server fisik maupun virtual (cloud).</p>
+                        <ul class="highlights">
+                            <li><i data-feather="check-circle"></i>Rack Server untuk Praktik Langsung</li>
+                            <li><i data-feather="check-circle"></i>Instalasi & Administrasi OS Linux & Windows Server</li>
+                            <li><i data-feather="check-circle"></i>Teknologi Virtualisasi (Proxmox/VMware)</li>
+                            <li><i data-feather="check-circle"></i>Pengenalan Platform Cloud (AWS/Azure)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="fasilitas-card">
+                    <div class="fasilitas-image">
+                        <img src="https://images.unsplash.com/photo-1550009158-94ae76552485?q=80&w=1887&auto=format&fit=crop" alt="Workshop Internet of Things (IoT)">
+                    </div>
+                    <div class="fasilitas-content">
+                        <h3>Workshop IoT & Mikrokontroler</h3>
+                        <p class="description">Ruang kreatif untuk eksplorasi Internet of Things (IoT), menggabungkan hardware, software, dan jaringan.</p>
+                        <ul class="highlights">
+                            <li><i data-feather="check-circle"></i>Board Arduino, ESP32, dan Raspberry Pi</li>
+                            <li><i data-feather="check-circle"></i>Berbagai Macam Sensor dan Aktuator</li>
+                            <li><i data-feather="check-circle"></i>Pemrograman Dasar Mikrokontroler</li>
+                            <li><i data-feather="check-circle"></i>Proyek Smart Home & Monitoring Jarak Jauh</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <p>© 2025 Jurusan TKJ SMK Teknologi Masa Depan. All rights reserved.</p>
+            <p>Dibangun dengan Penuh Semangat oleh Anak TKJ.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Feather Icons Initialization ---
+        feather.replace();
+
+        // --- Navigation & Hamburger Menu ---
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = hamburger.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.setAttribute('data-feather', 'x');
+            } else {
+                icon.setAttribute('data-feather', 'menu');
+            }
+            feather.replace();
+        });
+    </script>
+</body>
+  </html>
